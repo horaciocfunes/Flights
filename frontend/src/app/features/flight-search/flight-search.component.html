@@ -1,0 +1,70 @@
+<div class="hero">
+  <div class="hero-text">
+    <h1>Fly <span class="gold">Anywhere.</span></h1>
+    <p>Search and compare flights from all airlines in one place.</p>
+  </div>
+
+  <div class="search-card">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="origin">From</label>
+          <select id="origin" formControlName="originCode" (change)="onOriginChange()">
+            <option value="">Select origin</option>
+            @for (airport of airports; track airport.code) {
+              <option [value]="airport.code">{{ airport.city }} ({{ airport.code }})</option>
+            }
+          </select>
+          @if (searchForm.get('originCode')?.touched && searchForm.get('originCode')?.invalid) {
+            <span class="error">Origin is required</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="destination">To</label>
+          <select id="destination" formControlName="destinationCode" [attr.disabled]="!selectedOrigin || null">
+            <option value="">Select destination</option>
+            @for (airport of availableDestinations; track airport.code) {
+              <option [value]="airport.code">{{ airport.city }} ({{ airport.code }})</option>
+            }
+          </select>
+          @if (searchForm.get('destinationCode')?.touched && searchForm.get('destinationCode')?.invalid) {
+            <span class="error">Destination is required</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="date">Departure Date</label>
+          <input id="date" type="date" formControlName="departureDate" [min]="minDate" />
+          @if (searchForm.get('departureDate')?.touched && searchForm.get('departureDate')?.invalid) {
+            <span class="error">Date is required</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="passengers">Passengers</label>
+          <select id="passengers" formControlName="passengerCount">
+            @for (n of passengerOptions; track n) {
+              <option [value]="n">{{ n }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cabin">Cabin Class</label>
+          <select id="cabin" formControlName="cabinClass">
+            @for (c of cabinClasses; track c) {
+              <option [value]="c">{{ c }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="search-footer">
+        <button type="submit" [disabled]="searchForm.invalid">Search Flights</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+version: '3.8'
+
+# Run everything: docker-compose up --build
+#
+# API:      http://localhost:5000  (Swagger: http://localhost:5000/swagger)
+# Frontend: http://localhost:4200
+
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - skyroute-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+    networks:
+      - skyroute-net
+
+networks:
+  skyroute-net:
+    driver: bridge

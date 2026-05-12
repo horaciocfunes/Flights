@@ -1,0 +1,171 @@
+.results-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.back-link {
+  color: rgba(201, 168, 76, 0.8);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: color 0.15s;
+  &:hover { color: #c9a84c; }
+}
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  span { font-size: 0.82rem; color: rgba(221, 229, 255, 0.4); }
+
+  button {
+    padding: 0.35rem 1rem;
+    border: 1px solid rgba(201, 168, 76, 0.22);
+    border-radius: 20px;
+    background: transparent;
+    color: rgba(221, 229, 255, 0.55);
+    cursor: pointer;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    transition: all 0.15s;
+
+    &:hover  { border-color: #c9a84c; color: #c9a84c; }
+    &.active { background: rgba(201, 168, 76, 0.14); color: #c9a84c; border-color: #c9a84c; }
+  }
+}
+
+.state-box {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: rgba(13, 19, 55, 0.7);
+  border: 1px solid rgba(201, 168, 76, 0.1);
+  border-radius: 12px;
+
+  p { color: rgba(221, 229, 255, 0.55); margin-bottom: 1.25rem; }
+
+  a {
+    color: #c9a84c;
+    text-decoration: none;
+    font-weight: 600;
+    &:hover { text-decoration: underline; }
+  }
+
+  &.error p { color: #f87171; }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(201, 168, 76, 0.12);
+  border-top-color: #c9a84c;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1.25rem;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.flight-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.flight-card {
+  background: rgba(13, 19, 55, 0.82);
+  border: 1px solid rgba(201, 168, 76, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    border-color: rgba(201, 168, 76, 0.38);
+    box-shadow: 0 4px 28px rgba(201, 168, 76, 0.07);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1.25rem;
+  background: rgba(7, 9, 29, 0.55);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.07);
+
+  .provider      { font-weight: 700; color: #c9a84c; font-size: 0.88rem; letter-spacing: 0.06em; }
+  .flight-number { font-size: 0.78rem; color: rgba(221, 229, 255, 0.4); }
+  .cabin         { font-size: 0.72rem; color: rgba(221, 229, 255, 0.35); margin-left: auto; letter-spacing: 0.07em; text-transform: uppercase; }
+}
+
+.badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.18rem 0.65rem;
+  border-radius: 20px;
+  background: rgba(26, 86, 219, 0.18);
+  color: #7ba7f7;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+
+  &.international { background: rgba(201, 168, 76, 0.14); color: #c9a84c; }
+}
+
+.card-body {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.segment {
+  min-width: 90px;
+
+  .time { font-size: 1.5rem; font-weight: 700; color: #fff; }
+  .code { font-size: 0.82rem; font-weight: 700; color: rgba(221, 229, 255, 0.55); letter-spacing: 0.06em; }
+  .city { font-size: 0.73rem; color: rgba(221, 229, 255, 0.38); }
+}
+
+.duration-col {
+  flex: 1;
+  text-align: center;
+
+  .duration-label { font-size: 0.75rem; color: rgba(221, 229, 255, 0.38); margin-bottom: 0.2rem; }
+  .arrow          { color: rgba(201, 168, 76, 0.35); font-size: 0.85rem; }
+}
+
+.price-col {
+  text-align: right;
+  min-width: 150px;
+
+  .total-price { font-size: 1.65rem; font-weight: 800; color: #c9a84c; }
+  .per-person  { font-size: 0.72rem; color: rgba(221, 229, 255, 0.38); margin-bottom: 0.65rem; }
+}
+
+.select-btn {
+  padding: 0.55rem 1.5rem;
+  background: linear-gradient(135deg, #c9a84c 0%, #e8c97a 100%);
+  color: #07091d;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: opacity 0.15s, transform 0.1s;
+
+  &:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+}

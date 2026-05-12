@@ -1,0 +1,74 @@
+<div class="results-page">
+  <div class="toolbar">
+    <a routerLink="/" class="back-link">← New Search</a>
+    <div class="sort-controls">
+      <span>Sort by:</span>
+      <button [class.active]="activeSort === 'departure'" (click)="applySort('departure')">Departure</button>
+      <button [class.active]="activeSort === 'price'"     (click)="applySort('price')">Price</button>
+      <button [class.active]="activeSort === 'duration'"  (click)="applySort('duration')">Duration</button>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="state-box">
+      <div class="spinner"></div>
+      <p>Searching flights from all providers…</p>
+    </div>
+  }
+
+  @if (!loading && error) {
+    <div class="state-box error">
+      <p>Something went wrong. Please try again.</p>
+      <a routerLink="/">Back to Search</a>
+    </div>
+  }
+
+  @if (!loading && !error && sortedFlights.length === 0) {
+    <div class="state-box">
+      <p>No flights found for this route and date.</p>
+      <a routerLink="/">Back to Search</a>
+    </div>
+  }
+
+  @if (!loading && !error && sortedFlights.length > 0) {
+    <div class="flight-list">
+      @for (flight of sortedFlights; track flight.flightId) {
+        <div class="flight-card">
+          <div class="card-header">
+            <span class="provider">{{ flight.providerName }}</span>
+            <span class="flight-number">{{ flight.flightNumber }}</span>
+            <span class="badge" [class.international]="flight.isInternational">
+              {{ flight.isInternational ? 'International' : 'Domestic' }}
+            </span>
+            <span class="cabin">{{ flight.cabinClass }}</span>
+          </div>
+
+          <div class="card-body">
+            <div class="segment">
+              <div class="time">{{ formatTime(flight.departureTime) }}</div>
+              <div class="code">{{ flight.origin.code }}</div>
+              <div class="city">{{ flight.origin.city }}</div>
+            </div>
+
+            <div class="duration-col">
+              <div class="duration-label">{{ formatDuration(flight.durationMinutes) }}</div>
+              <div class="arrow">──────────▶</div>
+            </div>
+
+            <div class="segment">
+              <div class="time">{{ formatTime(flight.arrivalTime) }}</div>
+              <div class="code">{{ flight.destination.code }}</div>
+              <div class="city">{{ flight.destination.city }}</div>
+            </div>
+
+            <div class="price-col">
+              <div class="total-price">${{ flight.totalPrice | number:'1.2-2' }}</div>
+              <div class="per-person">${{ flight.pricePerPassenger | number:'1.2-2' }} / person</div>
+              <button class="select-btn" (click)="selectFlight(flight)">Select</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
